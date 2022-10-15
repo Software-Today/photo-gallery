@@ -1,13 +1,14 @@
-import { camera } from 'ionicons/icons';
+import { camera, trash, close } from 'ionicons/icons';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton,
-          IonIcon, IonGrid, IonRow, IonCol, IonImg } from '@ionic/react';
-
+          IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
+import React, { useState } from 'react';
 import './Tab2.css';
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
+import { usePhotoGallery, UserPhoto  } from '../hooks/usePhotoGallery';
 
 const Tab2: React.FC = () => {
   
-  const { takePhoto, photos } = usePhotoGallery();
+  const { takePhoto, photos, deletePhoto  } = usePhotoGallery();
+  const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
 
   return (
     <IonPage>
@@ -21,19 +22,38 @@ const Tab2: React.FC = () => {
           <IonRow>
             {photos.map((photo, index) => (
               <IonCol size="6" key={index}>
-                <IonImg src={photo.webviewPath} />
+                <IonImg onClick={() => setPhotoToDelete(photo)} src={photo.webviewPath} />
               </IonCol>
             ))}
           </IonRow>
         </IonGrid>
-      </IonContent>
-      <IonContent>
         <IonFab vertical="bottom" horizontal="center" slot="fixed">
           <IonFabButton onClick={() => takePhoto()}>
             <IonIcon icon={camera}></IonIcon>
           </IonFabButton>
         </IonFab>
       </IonContent>
+      <IonActionSheet isOpen={!!photoToDelete}
+        buttons={[
+          {
+            text: 'Delete',
+            role: 'destructive',
+            icon: trash,
+            handler: () => {
+              if (photoToDelete) {
+                deletePhoto(photoToDelete);
+                setPhotoToDelete(undefined);
+              }
+            },
+          },
+          {
+            text: 'Cancel',
+            icon: close,
+            role: 'cancel',
+          },
+        ]}
+        onDidDismiss={() => setPhotoToDelete(undefined)}
+      />
     </IonPage>
   );
 };

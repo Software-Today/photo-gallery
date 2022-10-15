@@ -1,8 +1,6 @@
-import ExploreContainer from '../components/ExploreContainer';
-import { camera, trash, close } from 'ionicons/icons';
-import { useState, useEffect } from 'react';
+import { camera } from 'ionicons/icons';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton,
-          IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
+          IonIcon, IonGrid, IonRow, IonCol, IonImg } from '@ionic/react';
 
 import './Tab2.css';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
@@ -18,14 +16,6 @@ const Tab2: React.FC = () => {
           <IonTitle>Photo Gallery</IonTitle>
         </IonToolbar>
       </IonHeader>
-      {/* <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Photo Gallery</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Photo Gallery" />
-      </IonContent> */}
       <IonContent>
         <IonGrid>
           <IonRow>
